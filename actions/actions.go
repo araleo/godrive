@@ -73,7 +73,7 @@ func GetFile(srv *drive.Service, fileId string) {
 	}
 	defer data.Body.Close()
 
-	file, err := os.Create(meta.Name)
+	file, err := os.Create(path.Join("./downloads", meta.Name))
 	if err != nil {
 		log.Fatal(err)
 	}
