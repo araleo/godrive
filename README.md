@@ -1,11 +1,34 @@
 # GoDrive
 
-GoDrive is a Go CLI written to wrap the Google Drive API. 
+GoDrive is a Go CLI tool written to wrap the Google Drive API. 
 
-Features
+## Features
 
 - [x] List all files in the drive
 - [ ] List all files and folders in a pretty way (tree)
 - [x] Upload a file
 - [ ] Upload to a certain folder
 - [x] Download a file
+
+## Usage
+
+Build:
+
+```
+go build .
+```
+
+List all files in your Drive:
+```
+godrive ls
+```
+
+Upload a file:
+```
+godrive up <filepath>
+```
+
+Download a file:
+```
+godrive down <file id>
+```
