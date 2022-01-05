@@ -8,4 +8,4 @@ Features
 - [ ] List all files and folders in a pretty way (tree)
 - [x] Upload a file
 - [ ] Upload to a certain folder
-- [ ] Download a file
+- [x] Download a file

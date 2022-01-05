@@ -71,8 +71,8 @@ func saveToken(path string, token *oauth2.Token) {
 	json.NewEncoder(f).Encode(token)
 }
 
-func main() {
-
+// getService loads auth and config and returns a new drive service.
+func getService() *drive.Service {
 	ctx := context.Background()
 	b, err := ioutil.ReadFile("credentials.json")
 	if err != nil {
@@ -91,6 +91,21 @@ func main() {
 		log.Fatalf("Unable to retrieve Drive client: %v", err)
 	}
 
-	// actions.ListFiles(srv)
-	actions.UploadFile(srv, "pi.txt")
+	return srv
+}
+
+func main() {
+	command := os.Args[1]
+
+	srv := getService()
+	switch command {
+	case "ls":
+		actions.ListFiles(srv)
+	case "up":
+		filepath := os.Args[2]
+		actions.UploadFile(srv, filepath)
+	case "down":
+		fileId := os.Args[2]
+		actions.GetFile(srv, fileId)
+	}
 }
