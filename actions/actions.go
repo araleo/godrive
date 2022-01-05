@@ -10,21 +10,35 @@ import (
 	"google.golang.org/api/drive/v3"
 )
 
+// printFilesResult receives an array of drive files and iterate through the array printing files names and ids.
+func printFilesResult(files []*drive.File) {
+	fmt.Println("Files:")
+	if len(files) == 0 {
+		fmt.Println("No files found.")
+	} else {
+		for _, i := range files {
+			fmt.Printf("%s (%s)\n\n", i.Name, i.Id)
+		}
+	}
+}
+
 // ListFiles receives a drive service and lists all files and folders in that drive.
 func ListFiles(srv *drive.Service) {
-	r, err := srv.Files.List().PageSize(50).
-		Fields("nextPageToken, files(id, name, kind, parents)").Do()
+	r, err := srv.Files.List().Fields("files(id, name)").Do()
 	if err != nil {
 		log.Fatalf("Unable to retrieve files: %v", err)
 	}
-	fmt.Println("Files:")
-	if len(r.Files) == 0 {
-		fmt.Println("No files found.")
-	} else {
-		for _, i := range r.Files {
-			fmt.Printf("%s - %s (%s)\n%s\n\n", i.Kind, i.Name, i.Id, i.Parents)
-		}
+	printFilesResult(r.Files)
+}
+
+// QueryFiles receives a drive service and a query string and lists all files whose names contains the query (case insensitive).
+func QueryFiles(srv *drive.Service, query string) {
+	queryString := fmt.Sprintf("name contains '%s'", query)
+	r, err := srv.Files.List().Q(queryString).Do()
+	if err != nil {
+		log.Fatal(err)
 	}
+	printFilesResult(r.Files)
 }
 
 // UploadFile receives a drive service and a local filepath and uploads the file to the root of the drive.

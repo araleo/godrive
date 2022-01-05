@@ -101,6 +101,9 @@ func main() {
 	switch command {
 	case "ls":
 		actions.ListFiles(srv)
+	case "search":
+		query := os.Args[2]
+		actions.QueryFiles(srv, query)
 	case "up":
 		filepath := os.Args[2]
 		actions.UploadFile(srv, filepath)

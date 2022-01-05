@@ -23,6 +23,11 @@ List all files in your Drive:
 godrive ls
 ```
 
+Search for a file in your Drive (searchs for files with names that contain the query):
+```
+godrive search <query>
+```
+
 Upload a file:
 ```
 godrive up <filepath>
