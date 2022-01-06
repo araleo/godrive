@@ -110,5 +110,8 @@ func main() {
 	case "down":
 		fileId := os.Args[2]
 		actions.GetFile(srv, fileId)
+	case "doc":
+		fileId := os.Args[2]
+		actions.GetFromDrive(srv, fileId)
 	}
 }

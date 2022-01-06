@@ -10,6 +10,7 @@ GoDrive is a Go CLI tool written to wrap the Google Drive API.
 - [x] Upload a file
 - [ ] Upload to a certain folder
 - [x] Download a file
+- [x] Export a document from Google Docs as unformated txt
 
 ## Usage
 
@@ -37,4 +38,9 @@ godrive up <filepath>
 Download a file:
 ```
 godrive down <file id>
+```
+
+Export a documento from Google Docs
+```
+godrive doc <file id>
 ```
