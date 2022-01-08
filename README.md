@@ -40,7 +40,7 @@ Download a file:
 godrive down <file id>
 ```
 
-Export a documento from Google Docs
+Export a document from Google Docs
 ```
 godrive doc <file id>
 ```

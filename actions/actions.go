@@ -86,15 +86,13 @@ func GetFile(srv *drive.Service, fileId string) {
 
 // GetFromDrive receives a drive service and a fileId from a file in Google Docs and downloads the file to the ./downloads folder.
 func GetFromDrive(srv *drive.Service, fileId string) {
-	data, err := srv.Files.
-		Export(fileId, "text/plain").
-		Download()
+	data, err := srv.Files.Export(fileId, "text/plain").Download()
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer data.Body.Close()
 
-	file, err := os.Create(path.Join("./downloads", "teste.txt"))
+	file, err := os.Create(path.Join("./downloads", fmt.Sprintf("%s.txt", fileId)))
 	if err != nil {
 		log.Fatal(err)
 	}
