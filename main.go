@@ -16,6 +16,32 @@ import (
 	"google.golang.org/api/option"
 )
 
+func main() {
+	command := os.Args[1]
+
+	srv := getService()
+
+	switch command {
+	case "ls":
+		actions.ListFiles(srv)
+	case "search":
+		query := os.Args[2]
+		actions.QueryFiles(srv, query)
+	case "root":
+		folderId := os.Args[2]
+		actions.ListFolder(srv, folderId)
+	case "up":
+		filepath := os.Args[2]
+		actions.UploadFile(srv, filepath)
+	case "down":
+		fileId := os.Args[2]
+		actions.GetFile(srv, fileId)
+	case "doc":
+		fileId := os.Args[2]
+		actions.GetFromDrive(srv, fileId)
+	}
+}
+
 // getClient retrieve a token, saves the token, then returns the generated client.
 func getClient(config *oauth2.Config) *http.Client {
 	// The file token.json stores the user's access and refresh tokens, and is
@@ -92,26 +118,4 @@ func getService() *drive.Service {
 	}
 
 	return srv
-}
-
-func main() {
-	command := os.Args[1]
-
-	srv := getService()
-	switch command {
-	case "ls":
-		actions.ListFiles(srv)
-	case "search":
-		query := os.Args[2]
-		actions.QueryFiles(srv, query)
-	case "up":
-		filepath := os.Args[2]
-		actions.UploadFile(srv, filepath)
-	case "down":
-		fileId := os.Args[2]
-		actions.GetFile(srv, fileId)
-	case "doc":
-		fileId := os.Args[2]
-		actions.GetFromDrive(srv, fileId)
-	}
 }

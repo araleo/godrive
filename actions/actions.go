@@ -22,6 +22,16 @@ func printFilesResult(files []*drive.File) {
 	}
 }
 
+func ListFolder(srv *drive.Service, folder string) {
+	fmt.Println("Searching for the root...")
+	queryString := fmt.Sprintf("'%s' in parents", folder)
+	r, err := srv.Files.List().Q(queryString).Do()
+	if err != nil {
+		log.Fatalf("Unable to list drives: %v", err)
+	}
+	printFilesResult(r.Files)
+}
+
 // ListFiles receives a drive service and lists all files and folders in that drive.
 func ListFiles(srv *drive.Service) {
 	r, err := srv.Files.List().Fields("files(id, name)").Do()
